@@ -3,6 +3,8 @@
 mobile frontend simple rem responsive code
 兼容UC竖屏转横屏，手淘那个lib-flexible.js有bug.可以简单使用我这个。
 
+[项目介绍](http://caibaojian.com/simple-flexible.html)
+
 ## How to usage
 
 复制整个文件代码，放在网页的head中。
