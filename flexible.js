@@ -14,10 +14,7 @@
 	function refreshRem() {
 		var width = docEl.getBoundingClientRect().width;
 		maxWidth = maxWidth || 540;
-		width = width>maxWidth ? maxWidth:width;
-		if (width > maxWidth) { // 淘宝做法：限制在540的屏幕下，这样100%就跟10rem不一样了
-			width = maxWidth;
-		}
+		width>maxWidth && (width=maxWidth);
 		var rem = width * 100 / designWidth;
 		remStyle.innerHTML = 'html{font-size:' + rem + 'px;}';
 	}
