@@ -6,33 +6,31 @@
 //最大宽度:maxWidth
 ;(function(designWidth, maxWidth) {
 	var doc = document,
-		win = window;
-	var docEl = doc.documentElement;
+		win = window,
+		docEl = doc.documentElement,
+		remStyle = document.createElement("style");
 	var tid;
-	var rootItem,rootStyle;
 
 	function refreshRem() {
 		var width = docEl.getBoundingClientRect().width;
-		if (!maxWidth) {
-			maxWidth = 540;
-		};
-		if (width > maxWidth) {
+		maxWidth = maxWidth || 540;
+		width = width>maxWidth ? maxWidth:width;
+		if (width > maxWidth) { // 淘宝做法：限制在540的屏幕下，这样100%就跟10rem不一样了
 			width = maxWidth;
 		}
 		var rem = width * 100 / designWidth;
-		rootStyle="html{font-size:"+rem+'px !important}';
-		rootItem = document.getElementById('rootsize') || document.createElement("style");
-		if(!document.getElementById('rootsize')){
-		document.getElementsByTagName("head")[0].appendChild(rootItem);
-		rootItem.id='rootsize';
-		}
-		if(rootItem.styleSheet){
-		rootItem.styleSheet.disabled||(rootItem.styleSheet.cssText=rootStyle)
-		}else{
-		try{rootItem.innerHTML=rootStyle}catch(f){rootItem.innerText=rootStyle}
-		}
-		docEl.style.fontSize = rem + "px";
-	};
+		remStyle.innerHTML = 'html{font-size:' + rem + 'px;}';
+	}
+
+	if (docEl.firstElementChild) {
+		docEl.firstElementChild.appendChild(remStyle);
+	} else {
+		var wrap = doc.createElement("div");
+		wrap.appendChild(remStyle);
+		doc.write(wrap.innerHTML);
+		wrap = null;
+	}
+	//要等 wiewport 设置好后才能执行 refreshRem，不然 refreshRem 会执行2次；
 	refreshRem();
 
 	win.addEventListener("resize", function() {
