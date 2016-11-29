@@ -6,10 +6,10 @@
 //最大宽度:maxWidth
 ;(function(designWidth, maxWidth) {
 	var doc = document,
-		win = window,
-		docEl = doc.documentElement,
-		remStyle = document.createElement("style");
-	var tid;
+	win = window,
+	docEl = doc.documentElement,
+	remStyle = document.createElement("style"),
+	tid;
 
 	function refreshRem() {
 		var width = docEl.getBoundingClientRect().width;
